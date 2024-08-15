@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const LessonModel = new Schema(
+const lessonModel = new Schema(
   {
     title: { type: String, required: true },
     videourl: { type: String, required: true },
@@ -12,4 +12,4 @@ const LessonModel = new Schema(
   }
 );
 
-module.exports = mongoose.model("LessonModel", LessonModel);
+module.exports = mongoose.model("lessonModel", lessonModel);
