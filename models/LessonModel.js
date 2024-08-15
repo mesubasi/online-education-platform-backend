@@ -5,7 +5,7 @@ const LessonModel = new Schema(
   {
     title: { type: String, required: true },
     videourl: { type: String, required: true },
-    material: { type: String, required: true },
+    material: { type: Schema.Types.Mixed, required: true },
   },
   {
     timestamps: true,
