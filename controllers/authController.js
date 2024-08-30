@@ -1,5 +1,4 @@
 const Users = require("../models/Users");
-const api = require("express").Router();
 const bcrypt = require("bcrypt");
 
 //POST Register
