@@ -17,6 +17,15 @@ const connect = async () => {
   }
 };
 
+//JSON body değerlerini ayrıştırmak için Middleware
+server.use(express.json());
+
+// form verilerini ayrıştırmak için middleware
+server.use(express.urlencoded({ extended: false }));
+
+//routes
+server.use("/register", require("./routes/auth"));
+
 server.listen(PORT, () => {
   connect();
   console.log(`Server is running on port ${PORT}`);
