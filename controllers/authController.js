@@ -41,7 +41,7 @@ const handleNewUser = async (req, res) => {
       name,
       surname,
       email,
-      password,
+      password: hashedPassword,
     });
     await newUser.save();
 
@@ -52,3 +52,5 @@ const handleNewUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+module.exports = { limiter, handleNewUser };

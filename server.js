@@ -5,9 +5,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const logger = require("morgan");
 
-//routes
-const authRoute = require("./routes/auth");
-
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -28,7 +25,8 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
-server.use("/api/register", authRoute);
+//routes
+server.use("/register", require("./routes/auth"));
 
 server.listen(PORT, () => {
   connect();
