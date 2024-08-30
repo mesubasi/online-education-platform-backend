@@ -2,6 +2,7 @@ const express = require("express");
 const server = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -17,11 +18,12 @@ const connect = async () => {
   }
 };
 
+//middlewares
 //JSON body değerlerini ayrıştırmak için Middleware
 server.use(express.json());
-
 // form verilerini ayrıştırmak için middleware
 server.use(express.urlencoded({ extended: false }));
+server.use(cors());
 
 //routes
 server.use("/register", require("./routes/auth"));
