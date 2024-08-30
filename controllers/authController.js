@@ -1,12 +1,16 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const rateLimit = require("express-rate-limit");
+const path = require("path");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: 100,
+  limit: 2,
   standardHeaders: "draft-7",
   legacyHeaders: false,
+  handler: (req, res, next) => {
+    res.status(429).sendFile(path.join(__dirname, "../views/429.html"));
+  },
 });
 
 //POST Register
