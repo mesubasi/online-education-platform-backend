@@ -4,8 +4,8 @@ const rateLimit = require("express-rate-limit");
 const path = require("path");
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 2,
+  windowMs: 15 * 60 * 1000, //15 Dakika Bekleme
+  limit: 25, // Deneme Sayısı
   standardHeaders: "draft-7",
   legacyHeaders: false,
   handler: (req, res, next) => {
