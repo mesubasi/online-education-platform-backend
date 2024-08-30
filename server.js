@@ -3,6 +3,7 @@ const server = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const logger = require("morgan");
 
 //routes
 const authRoute = require("./routes/auth");
@@ -22,6 +23,7 @@ const connect = async () => {
 };
 
 //middlewares
+server.use(logger("combined"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
