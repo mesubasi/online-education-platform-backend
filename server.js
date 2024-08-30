@@ -4,6 +4,9 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+//routes
+const authRoute = require("./routes/auth");
+
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -19,14 +22,11 @@ const connect = async () => {
 };
 
 //middlewares
-//JSON body değerlerini ayrıştırmak için Middleware
 server.use(express.json());
-// form verilerini ayrıştırmak için middleware
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
-//routes
-server.use("/register", require("./routes/auth"));
+server.use("/api/register", authRoute);
 
 server.listen(PORT, () => {
   connect();
