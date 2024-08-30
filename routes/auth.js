@@ -21,6 +21,7 @@ const handleNewUser = async (req, res) => {
       return res.status(403).json({ error: "Email already in use!" });
     }
 
+    //Kayıt Olurken Email veya Parola Olmadan Kayıt olmaya Çalışılırsa Zorunlu Olduğunu Belirt
     if (!email || !password) {
       return res.status(400).json({
         message: "Email and Password Are Required!",
@@ -37,7 +38,7 @@ const handleNewUser = async (req, res) => {
     await newUser.save();
 
     //Kullanıcı Başarıyla Kayıt Olduğunda HTTP 200 Kodu Dönder.
-    res.status(200).json("A New User Created Successfully.");
+    res.status(200).json({ success: "A New User Created Successfully." });
   } catch (err) {
     res.status(500).json(err);
   }
