@@ -31,6 +31,13 @@ const handleLogin = async (req, res) => {
     if (!validPassword) {
       return res.status(403).json({ error: "Invalid Password!" });
     }
+
+    return res.status(200).json({
+      user: user._id,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+    });
   } catch (err) {
     res.status(500).json({ error: "Login failed", details: err.message });
   }
