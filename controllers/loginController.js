@@ -1,6 +1,5 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
-const { error } = require("console");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
 
@@ -36,3 +35,5 @@ const handleLogin = async (req, res) => {
     res.status(500).json({ error: "Login failed", details: err.message });
   }
 };
+
+module.exports = router;
