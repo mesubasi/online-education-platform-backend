@@ -29,22 +29,32 @@ const handleLogin = async (req, res) => {
       user.password
     );
 
-    //Parola yanlış girilmişse geçersiz parola dönder.
-    if (!validPassword) {
-      return res.status(403).json({ error: "Invalid Password!" });
-    }
-
     //Parola doğru girilmişe değerleri dönder
     if (validPassword) {
-      const accessToken = jwt.sign({ email: user.email }, null, {
-        expiresIn: "30s",
-      });
+      const accessToken = jwt.sign(
+        {
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: "30s",
+        }
+      );
+
+      console.log(accessToken);
+
       return res.status(200).json({
         user: user._id,
         name: user.name,
         surname: user.surname,
         email: user.email,
       });
+    }
+    //Parola yanlış girilmişse geçersiz parola dönder.
+    else {
+      return res.status(403).json({ error: "Invalid Password!" });
     }
   } catch (err) {
     res.status(500).json({ error: "Login failed", details: err.message });
