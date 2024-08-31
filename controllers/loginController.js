@@ -15,6 +15,17 @@ const limiter = rateLimit({
 
 const handleLogin = async (req, res) => {
   try {
+    const user = await Users.findOne({ email: req.body.email });
+
+    //Mail Adresiyle Eşleşen Kullanıcı Yoksa
+    if (!user) {
+      return res.status(404).json({ error: "User Not Found!" });
+    }
+
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
   } catch (err) {
     res.status(500).json(err);
   }
