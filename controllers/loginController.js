@@ -22,12 +22,13 @@ const handleLogin = async (req, res) => {
       return res.status(404).json({ error: "User Not Found!" });
     }
 
+    //Body'den gelen parolayı ve email adresiyle eşleşen kullanıcının parolasını karşılaştır.
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
 
-    //Parola Yanlış Girilirse Kontrolü
+    //Parola yanlış girilmişse geçersiz parola dönder.
     if (!validPassword) {
       return res.status(403).json({ error: "Invalid Password!" });
     }
