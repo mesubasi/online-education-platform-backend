@@ -33,21 +33,17 @@ const handleLogin = async (req, res) => {
     if (validPassword) {
       const accessToken = jwt.sign(
         {
-          name: user.name,
-          surname: user.surname,
           email: user.email,
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
           algorithm: "HS256",
-          expiresIn: "30s",
+          expiresIn: "50m",
         }
       );
 
       const refreshToken = jwt.sign(
         {
-          name: user.name,
-          surname: user.surname,
           email: user.email,
         },
         process.env.REFRESH_TOKEN_SECRET,
@@ -66,9 +62,6 @@ const handleLogin = async (req, res) => {
 
       return res.status(200).json({
         accessToken,
-        user: user._id,
-        name: user.name,
-        surname: user.surname,
         email: user.email,
       });
     }

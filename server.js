@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const logger = require("morgan");
+const verifyJWT = require("./middleware/verifyJWT");
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ server.use(cors());
 
 //routes
 server.use("/register", require("./routes/register"));
+server.use(verifyJWT);
 server.use("/login", require("./routes/login"));
 
 server.listen(PORT, () => {
