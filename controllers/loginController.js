@@ -1,5 +1,6 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+const { error } = require("console");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
 
@@ -26,7 +27,12 @@ const handleLogin = async (req, res) => {
       req.body.password,
       user.password
     );
+
+    //Parola Yanlış Girilirse Kontrolü
+    if (!validPassword) {
+      return res.status(403).json({ error: "Invalid Password!" });
+    }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: "Login failed", details: err.message });
   }
 };
