@@ -26,7 +26,8 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
 //routes
-server.use("/register", require("./routes/auth"));
+server.use("/register", require("./routes/register"));
+server.use("/login", require("./routes/login"));
 
 server.listen(PORT, () => {
   connect();
