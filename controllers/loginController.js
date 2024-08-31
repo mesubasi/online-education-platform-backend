@@ -39,13 +39,33 @@ const handleLogin = async (req, res) => {
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
+          algorithm: "HS256",
           expiresIn: "30s",
         }
       );
 
-      console.log(accessToken);
+      const refreshToken = jwt.sign(
+        {
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+          algorithm: "HS256",
+          expiresIn: "1d",
+        }
+      );
+
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 1 gün
+        secure: true,
+        sameSite: "strict",
+      });
 
       return res.status(200).json({
+        accessToken,
         user: user._id,
         name: user.name,
         surname: user.surname,
