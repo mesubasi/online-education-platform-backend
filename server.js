@@ -28,8 +28,8 @@ server.use(cors());
 
 //routes
 server.use("/register", require("./routes/register"));
-server.use(verifyJWT);
 server.use("/login", require("./routes/login"));
+server.use(verifyJWT);
 
 server.listen(PORT, () => {
   connect();
