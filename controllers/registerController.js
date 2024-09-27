@@ -33,10 +33,16 @@ const handleNewUser = async (req, res) => {
       return res.status(403).json({ error: "Email already in use!" });
     }
 
+    const existingUsername = await Users.findOne({ username });
+
+    if (existingUsername) {
+      return res.status(403).json({ error: "Username already in use!" });
+    }
+
     //Zorunlu Alan Kontrolü
-    if (!email || !password) {
+    if (!username || !email || !password) {
       return res.status(400).json({
-        message: "Email and Password Are Required!",
+        message: "Username, Email, and Password Are Required!",
       });
     }
 
@@ -52,7 +58,7 @@ const handleNewUser = async (req, res) => {
     res.status(200).json({ success: "A New User Created Successfully." });
   } catch (err) {
     //Sunucu İle İlgili Sorun Olması Durumunda İstemciye 500 kodu dönder
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 };
 
