@@ -17,7 +17,7 @@ const limiter = rateLimit({
 const handleNewUser = async (req, res) => {
   try {
     //HTTP Post isteğinde body'den gönderilen veriler
-    const { name, surname, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     //Bcrypt Hash oluşturmak için
     const salt = await bcrypt.genSalt(10);
@@ -42,8 +42,7 @@ const handleNewUser = async (req, res) => {
 
     //Veritabanına body'den gelen değerleri yakaldıktan sonra kaydetmek için
     const newUser = new Users({
-      name,
-      surname,
+      username,
       email,
       password: hashedPassword,
     });
