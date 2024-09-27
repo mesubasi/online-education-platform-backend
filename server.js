@@ -28,6 +28,7 @@ server.use(cors());
 
 //routes
 server.use("/register", require("./routes/register"));
+server.use("/refreshtoken", require("./routes/refreshToken"));
 server.use("/login", require("./routes/login"));
 server.use(verifyJWT);
 
