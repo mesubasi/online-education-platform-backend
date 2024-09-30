@@ -1,7 +1,7 @@
 const CourseModel = require("../models/CourseModel");
 const jwt = require("jsonwebtoken");
 
-const handleCourse = async (req, res) => {
+const postCourse = async (req, res) => {
   try {
     const newCourse = new CourseModel(req.body);
     await newCourse.save();
