@@ -27,10 +27,10 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
 // JWT doğrulaması olmayan Auth routes
-server.use("/register", require("./routes/register"));
-server.use(verifyJWT);
-server.use("/login", require("./routes/login"));
-server.use("/course", require("./routes/course"));
+server.use("/api", require("./routes/register"));
+// server.use(verifyJWT);
+server.use("/api", require("./routes/login"));
+server.use("/api", require("./routes/course"));
 server.use("/refreshtoken", require("./routes/refreshToken"));
 
 server.listen(PORT, () => {

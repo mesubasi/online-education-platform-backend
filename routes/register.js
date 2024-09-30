@@ -3,7 +3,7 @@ const router = express.Router();
 const registerController = require("../controllers/registerController");
 
 router.post(
-  "/api",
+  "/register",
   registerController.limiter,
   registerController.handleNewUser
 );
