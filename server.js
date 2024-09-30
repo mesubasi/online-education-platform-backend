@@ -28,7 +28,7 @@ server.use(cors());
 
 // JWT doğrulaması olmayan Auth routes
 server.use("/api", require("./routes/register"));
-// server.use(verifyJWT);
+server.use(verifyJWT);
 server.use("/api", require("./routes/login"));
 server.use("/api", require("./routes/course"));
 server.use("/refreshtoken", require("./routes/refreshToken"));

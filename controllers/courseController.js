@@ -10,4 +10,4 @@ const postCourse = async (req, res) => {
     res.status(500).json({ error: "Course Failed", details: err.message });
   }
 };
-module.exports = { handleCourse };
+module.exports = { postCourse };
