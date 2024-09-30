@@ -27,4 +27,4 @@ const getCourse = async (req, res) => {
     res.status(500).json({ error: "Course Failed", details: err.message });
   }
 };
-module.exports = { postCourse };
+module.exports = { postCourse, getCourse };
