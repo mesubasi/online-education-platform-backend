@@ -30,6 +30,7 @@ server.use(cors());
 server.use("/register", require("./routes/register"));
 server.use(verifyJWT);
 server.use("/login", require("./routes/login"));
+server.use("/course", require("./routes/course"));
 server.use("/refreshtoken", require("./routes/refreshToken"));
 
 server.listen(PORT, () => {
