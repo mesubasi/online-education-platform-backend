@@ -21,6 +21,8 @@ const postCourse = async (req, res) => {
 
 const getCourse = async (req, res) => {
   try {
+    const course = await CourseModel.find();
+    res.status(200).json(course);
   } catch (err) {
     res.status(500).json({ error: "Course Failed", details: err.message });
   }
