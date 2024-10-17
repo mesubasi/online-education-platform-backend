@@ -9,7 +9,7 @@ const limiter = rateLimit({
   limit: 10, // Deneme Sayısı
   standardHeaders: "draft-7",
   legacyHeaders: false,
-  handler: (req, res, next) => {
+  handler: (res) => {
     res.status(429).sendFile(path.join(__dirname, "../views/429.html"));
   },
 });
