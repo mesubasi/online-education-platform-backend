@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const logger = require("morgan");
+const errorHandler = require("./middleware/errorHandler");
+const reqHandler = require("./middleware/reqHandler");
 const verifyJWT = require("./middleware/verifyJWT");
 
 dotenv.config();
@@ -20,6 +22,8 @@ const connect = async () => {
   }
 };
 
+server.use(reqHandler);
+
 //middlewares
 server.use(logger("combined"));
 server.use(express.json());
@@ -32,6 +36,7 @@ server.use("/api", require("./routes/login"));
 server.use(verifyJWT);
 server.use("/api", require("./routes/course"));
 server.use("/refreshtoken", require("./routes/refreshToken"));
+server.use(errorHandler);
 
 server.listen(PORT, () => {
   connect();
