@@ -31,12 +31,12 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
 // JWT doğrulaması olmayan Auth routes
+server.use(errorHandler);
 server.use("/api", require("./routes/register"));
 server.use("/api", require("./routes/login"));
 server.use(verifyJWT);
 server.use("/api", require("./routes/course"));
 server.use("/refreshtoken", require("./routes/refreshToken"));
-server.use(errorHandler);
 
 server.listen(PORT, () => {
   connect();
