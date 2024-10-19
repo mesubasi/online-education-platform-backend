@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, //15 Dakika Bekleme
-  limit: 10, // Deneme Sayısı
+  limit: 5, // Deneme Sayısı
   standardHeaders: "draft-7",
   legacyHeaders: false,
   handler: (res) => {
@@ -38,7 +38,7 @@ const handleLogin = async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         {
           algorithm: "HS256",
-          expiresIn: "50m",
+          expiresIn: "15m",
         }
       );
 
@@ -49,15 +49,18 @@ const handleLogin = async (req, res) => {
         process.env.REFRESH_TOKEN_SECRET,
         {
           algorithm: "HS256",
-          expiresIn: "1d",
+          expiresIn: "7d",
         }
       );
 
+      user.refreshToken = refreshToken;
+      await user.save();
+
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, // 1 gün
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       return res.status(200).json({
