@@ -2,6 +2,7 @@ const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, //15 Dakika Bekleme
@@ -54,8 +55,16 @@ const handleNewUser = async (req, res) => {
     });
     await newUser.save();
 
+    const token = jwt.sign(
+      { userID: newUser._id, username: newUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
     //Kullanıcı Başarıyla Kayıt Olduğunda HTTP 200 Kodu Dönder
-    res.status(200).json({ success: "A New User Created Successfully." });
+    res
+      .status(200)
+      .json({ success: "A New User Created Successfully.", token: token });
   } catch (err) {
     //Sunucu İle İlgili Sorun Olması Durumunda İstemciye 500 kodu dönder
     res.status(500).json({ error: err.message });
